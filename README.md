@@ -44,5 +44,11 @@ curl -i -X POST -b cookies.txt -c cookies.txt -H"X-XSRF-TOKEN: $TOKEN" -H"Conten
 
 Show current user
 ```
-curl -i -X GET  -H"Content-Type: application/json" -H"Accept: application/json" -H"Referer: localhost" http://localhost:80/api/user 
+curl -i -X GET -b cookies.txt  -H"Accept: application/json" -H"Referer: localhost" http://localhost:80/api/user
+```
+
+Get all tasks - protected
+```
+curl -i -X GET -H"Content-Type: application/json"  http://localhost:80/api/v1/tasks
+
 ```
