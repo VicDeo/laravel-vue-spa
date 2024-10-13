@@ -22,3 +22,27 @@ Delete a task
 ```
 curl -i -X DELETE -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/api/v1/tasks/15  
 ```
+
+Login
+```
+TOKEN=`curl -is -c cookies.txt -X GET "http://localhost:80/sanctum/csrf-cookie" | grep XSRF-TOKEN | cut -d ';' -f 1 | cut -d'=' -f2 | sed 's/\%3D/=/'`
+
+curl -i -X POST -b cookies.txt -c cookies.txt -H"X-XSRF-TOKEN: $TOKEN" -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/auth/login -d '{"email":"crist.reba@example.com", "password":"password"}'
+```
+
+Logout
+```
+curl -i -b cookies.txt  -X POST -H"X-XSRF-TOKEN: $TOKEN" http://localhost:80/auth/logout
+```
+
+Register
+```
+TOKEN=`curl -is -c cookies.txt -X GET "http://localhost:80/sanctum/csrf-cookie" | grep XSRF-TOKEN | cut -d ';' -f 1 | cut -d'=' -f2 | sed 's/\%3D/=/'`
+
+curl -i -X POST -b cookies.txt -c cookies.txt -H"X-XSRF-TOKEN: $TOKEN" -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/auth/register -d '{"name":"John Deer", "email":"omg@omfg.com", "password":"password", "password_confirmation":"password"}'
+```
+
+Show current user
+```
+curl -i -X GET  -H"Content-Type: application/json" -H"Accept: application/json" -H"Referer: localhost" http://localhost:80/api/user 
+```
