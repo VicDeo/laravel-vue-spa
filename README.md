@@ -50,5 +50,28 @@ curl -i -X GET -b cookies.txt  -H"Accept: application/json" -H"Referer: localhos
 Get all tasks - protected
 ```
 curl -i -X GET -H"Content-Type: application/json"  http://localhost:80/api/v1/tasks
+```
 
+### Token
+Login
+```
+curl -i -X POST  -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/api/auth/login -d '{"email":"crist.reba@example.com", "password":"password"}'
+```
+
+Show current user
+```
+$TOKEN is a token value sent by server with Login response
+TOKEN=`curl  -X POST -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/api/auth/login -d '{"email":"crist.reba@example.com", "password":"password"}' | jq ".token"`
+
+curl -i -X GET -H"Authorization: Bearer $TOKEN" -H"Accept: application/json"  http://localhost:80/api/user
+```
+
+Logout
+```
+curl -X POST -H"Authorization: Bearer $TOKEN" -H"Accept: application/json" http://localhost:80/api/auth/logout
+```
+
+Register
+```
+curl -i -X POST -H"Authorization: Bearer $TOKEN" -H"Accept: application/json"  http://localhost:80/api/auth/register -d '{"name":"John Deer", "email":"omg@omfg.com", "password":"password", "password_confirmation":"password"}'
 ```
