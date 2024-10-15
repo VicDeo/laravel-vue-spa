@@ -3,6 +3,17 @@ Get all tasks
 curl -i -X GET -H"Content-Type: application/json"  http://localhost:80/api/v1/tasks
 ```
 
+Get a task
+```
+curl -i -X GET -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/api/v1/tasks/11
+```
+
+Get a task - policy that task belongs to the current user
+```
+curl -i -X GET -H"Authorization: Bearer $TOKEN" -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/api/v2/tasks/11
+```
+
+
 Create a task
 ```
 curl -i -X POST -H"Content-Type: application/json"  http://localhost:80/api/v1/tasks --data '{"name":"New name"}'
