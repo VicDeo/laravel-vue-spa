@@ -47,9 +47,11 @@ Show current user
 curl -i -X GET -b cookies.txt  -H"Accept: application/json" -H"Referer: localhost" http://localhost:80/api/user
 ```
 
-Get all tasks - protected
+Get all tasks for the current user
 ```
-curl -i -X GET -H"Content-Type: application/json"  http://localhost:80/api/v1/tasks
+TOKEN=`curl  -X POST -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/api/auth/login -d '{"email":"blick.kellen@example.net", "password":"password"}' | jq ".token" | tr -d '"'`
+
+curl -i -X GET  -H"Authorization: Bearer $TOKEN" -H"Accept: application/json"  http://localhost:80/api/v2/tasks
 ```
 
 ### Token
