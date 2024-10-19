@@ -14,7 +14,7 @@
                     <!-- List of tasks -->
                     <div class="card mt-2">
                         <ul class="list-group list-group-flush">
-                            <li class="list-group-item py-3">
+                            <li class="list-group-item py-3" v-for="task in tasks" :key="task.id">
                                 <div
                                     class="d-flex justify-content-start align-items-center"
                                 >
@@ -29,7 +29,7 @@
                                         <!-- <div class="relative">
                                             <input class="editable-task" type="text" />
                                         </div> -->
-                                        <span>My First task</span>
+                                        <span>{{ task.name }}</span>
                                     </div>
                                     <div class="task-date">24 Feb 12:00</div>
                                 </div>
@@ -75,3 +75,15 @@
         </div>
     </main>
 </template>
+<script setup>
+import { onMounted, ref } from 'vue';
+import { allTasks } from '../http/task-api'
+
+const tasks = ref([])
+
+onMounted(async () => {
+    const { data } = await allTasks()
+    tasks.value = data.data
+})
+
+</script>
