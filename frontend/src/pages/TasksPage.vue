@@ -15,9 +15,15 @@
                     <Tasks :tasks="uncompletedTasks" />
 
                     <!-- Show toggle button -->
+                     <div class="text-center my-3" v-show="showToggleCompletedBtn">
+                        <button class="btn-sm btn-secondary" @click="showCompletedTasks = !showCompletedTasks">
+                            <span v-if="showCompletedTasks">Hide completed</span>
+                            <span v-else>Show completed</span>
+                        </button>
+                     </div>
 
                     <!-- List of completed tasks -->
-                    <Tasks :tasks="completedTasks" />
+                    <Tasks :tasks="completedTasks" :show="showCompletedTasks" />
 
                 </div>
             </div>
@@ -39,5 +45,6 @@ onMounted(async () => {
 const uncompletedTasks = computed(() => tasks.value.filter(task => !task.is_completed))
 const completedTasks = computed(() => tasks.value.filter(task => task.is_completed))
 
-
+const showToggleCompletedBtn = computed(() => uncompletedTasks.value.length>0 && completedTasks.value.length>0)
+const showCompletedTasks = ref(true)
 </script>
