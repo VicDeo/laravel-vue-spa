@@ -43,6 +43,8 @@
 </template>
 <script setup>
 import { onMounted, ref, computed } from "vue";
+import { storeToRefs } from "pinia";
+import { useTaskStore } from "../stores/task";
 import {
     allTasks,
     createTask,
@@ -53,19 +55,15 @@ import {
 import Tasks from "../components/tasks/Tasks.vue";
 import NewTask from "../components/tasks/NewTask.vue";
 
+const store = useTaskStore();
+const { task } = storeToRefs(store);
+const { completedTasks, uncompletedTasks } = storeToRefs(store);
 const tasks = ref([]);
 
 onMounted(async () => {
     const { data } = await allTasks();
     tasks.value = data.data;
 });
-
-const uncompletedTasks = computed(() =>
-    tasks.value.filter((task) => !task.is_completed)
-);
-const completedTasks = computed(() =>
-    tasks.value.filter((task) => task.is_completed)
-);
 
 const showToggleCompletedBtn = computed(
     () => uncompletedTasks.value.length > 0 && completedTasks.value.length > 0
@@ -94,8 +92,8 @@ const handleCompletedTask = async (task) => {
 };
 
 const handleRemovedTask = async (task) => {
-    await removeTask(task.id)
+    await removeTask(task.id);
     const index = tasks.value.findIndex((item) => item.id === task.id);
-    tasks.value.splice(index, 1)
-}
+    tasks.value.splice(index, 1);
+};
 </script>
