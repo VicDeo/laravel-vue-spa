@@ -40,13 +40,15 @@
 
 <script setup>
 import { computed, ref } from "vue";
+import { useTaskStore } from "../../stores/task";
 import TaskActions from "./TaskActions.vue";
+
+const store = useTaskStore();
+const { handleUpdatedTask, handleCompletedTask, handleRemovedTask } = store;
 
 const props = defineProps({
     task: Object,
 });
-
-const emit = defineEmits(["updated", "completed", "removed"]);
 
 const isEdit = ref(false);
 const editingTask = ref(props.task.name);
@@ -69,18 +71,18 @@ const markTaskAsCompleted = (event) => {
         ...props.task,
         is_completed: !props.task.is_completed,
     };
-    emit("completed", updatedTask);
+    handleCompletedTask(updatedTask);
 };
 
 const updateTask = (event) => {
     const updatedTask = { ...props.task, name: event.target.value };
     isEdit.value = false;
-    emit("updated", updatedTask);
+    handleUpdatedTask(updatedTask);
 };
 
 const removeTask = () => {
     if (confirm("Are you sure?")) {
-        emit("removed", props.task);
+        handleRemovedTask(props.task);
     }
 };
 </script>
