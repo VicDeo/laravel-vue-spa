@@ -4,7 +4,7 @@
             <div class="row">
                 <div class="col-md-8 offset-md-2">
                     <!-- Add new Task -->
-                    <NewTask @added="handleAddedTask" />
+                    <NewTask />
                     <!-- List of uncompleted tasks -->
                     <Tasks
                         :tasks="uncompletedTasks"
@@ -69,11 +69,6 @@ const showToggleCompletedBtn = computed(
     () => uncompletedTasks.value.length > 0 && completedTasks.value.length > 0
 );
 const showCompletedTasks = ref(true);
-
-const handleAddedTask = async (newTask) => {
-    const { data: createdTask } = await createTask(newTask);
-    tasks.value.unshift(createdTask.data);
-};
 
 const handleUpdatedTask = async (task) => {
     const { data: updatedTask } = await updateTask(task.id, {
