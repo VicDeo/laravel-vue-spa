@@ -1,10 +1,10 @@
 <template>
     <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
         <div class="container py-2">
-            <a href="#" class="navbar-brand">
+            <router-link :to="{ name: 'home' }" class="navbar-brand">
                 <span>Toedoe</span>
                 <strong>List</strong>
-            </a>
+            </router-link>
             <button
                 class="navbar-toggler"
                 type="button"
@@ -24,9 +24,7 @@
                         >
                     </li>
                     <li class="nav-item">
-                        <router-link
-                            :to="{ name: 'summary' }"
-                            class="nav-link"
+                        <router-link :to="{ name: 'summary' }" class="nav-link"
                             >Summary</router-link
                         >
                     </li>
@@ -59,6 +57,6 @@
 
 <style scoped>
 .nav-link.router-link-active {
-    color: rgba(0, 0, 0, .9);
+    color: rgba(0, 0, 0, 0.9);
 }
 </style>
