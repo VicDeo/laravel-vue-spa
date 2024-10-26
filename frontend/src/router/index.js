@@ -20,6 +20,12 @@ router.beforeEach(async (to, from) => {
             }
         };
     }
+    if (to.meta.guest && store.isLoggedIn) {
+        return {
+            name: "tasks",
+        };
+    }
+
 });
 
 export default router;

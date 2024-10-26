@@ -9,34 +9,37 @@ const routes = [
     {
         path: "/",
         component: HomePage,
-        name: 'home',
+        name: "home",
     },
     {
         path: "/tasks",
         component: TasksPage,
-        name: 'tasks',
-        meta: {auth: true}
-    },    {
+        name: "tasks",
+        meta: { auth: true },
+    },
+    {
         path: "/summary",
         component: SummaryPage,
-        name: 'summary',
-        meta: {auth: true}
+        name: "summary",
+        meta: { auth: true },
     },
     {
         path: "/login",
         component: LoginPage,
-        name: 'login'
+        name: "login",
+        meta: { guest: true },
     },
     {
         path: "/register",
         component: RegisterPage,
-        name: 'register'
+        name: "register",
+        meta: { guest: true },
     },
     {
         path: "/:notFound(.*)",
         name: "error.404",
-        component: NotFound
-    }
-]
+        component: NotFound,
+    },
+];
 
-export default routes
+export default routes;
