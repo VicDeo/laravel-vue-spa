@@ -38,7 +38,7 @@ Login
 ```
 TOKEN=`curl -is -c cookies.txt -X GET "http://localhost:80/sanctum/csrf-cookie" | grep XSRF-TOKEN | cut -d ';' -f 1 | cut -d'=' -f2 | sed 's/\%3D/=/'`
 
-curl -i -X POST -b cookies.txt -c cookies.txt -H"X-XSRF-TOKEN: $TOKEN" -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/auth/login -d '{"email":"crist.reba@example.com", "password":"password"}'
+curl -i -X POST -b cookies.txt -c cookies.txt -H"X-XSRF-TOKEN: $TOKEN" -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/auth/login -d '{"email":"boyle.sebastian@example.org", "password":"password"}'
 ```
 
 Logout
@@ -87,4 +87,12 @@ curl -X POST -H"Authorization: Bearer $TOKEN" -H"Accept: application/json" http:
 Register
 ```
 curl -i -X POST -H"Authorization: Bearer $TOKEN" -H"Accept: application/json"  http://localhost:80/api/auth/register -d '{"name":"John Deer", "email":"omg@omfg.com", "password":"password", "password_confirmation":"password"}'
+```
+
+Get summary
+```
+TOKEN=`curl -is -c cookies.txt -X GET "http://localhost:80/sanctum/csrf-cookie" | grep XSRF-TOKEN | cut -d ';' -f 1 | cut -d'=' -f2 | sed 's/\%3D/=/'` 
+curl -i -X POST -b cookies.txt -c cookies.txt -H"X-XSRF-TOKEN: $TOKEN" -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/auth/login -d '{"email":"boyle.sebastian@example.org", "password":"password"}'
+
+curl -i -X GET -b cookies.txt -c cookies.txt  -H"Referer: localhost"  -H"X-XSRF-TOKEN: $TOKEN" -H"Content-Type: application/json" -H"Accept: application/json"  http://localhost:80/api/v2/summaries\?period\=lastweek
 ```
