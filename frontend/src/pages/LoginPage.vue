@@ -6,7 +6,6 @@
                 <strong>List</strong>
             </h1>
             <h2 class="h3 mb-4 fw-normal">Please sign in</h2>
-            {{ errors }}
             <div class="form-floating mb-2">
                 <input
                     type="email"

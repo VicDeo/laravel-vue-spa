@@ -32,11 +32,18 @@ export const useAuthStore = defineStore("authStore", () => {
     };
 
     const handleRegister = async (newUser) => {
-        await register(newUser);
-        await handleLogin({
-            email: newUser.email,
-            password: newUser.password,
-        });
+        await csrfCookie()
+        try {
+            await register(newUser);
+            await handleLogin({
+                email: newUser.email,
+                password: newUser.password,
+            });
+        } catch (error) {
+            if (error.response && error.response.status === 422) {
+                errors.value = error.response.data.errors
+            }
+        }
     };
 
     const handleLogout = async () => {
